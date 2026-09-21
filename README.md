@@ -55,7 +55,7 @@ one page per placement. `SITE_URL=https://… npm run qr` overrides the base URL
 
 ## Hosting
 
-Railway, project `lovely-generosity`, service `Pamphlet`, deployed from `main`.
+Vercel, project `edusphere-pamphlet` (https://edusphere-pamphlet.vercel.app), deployed from `main`.
 Set `DATABASE_URL` and `NEXT_PUBLIC_SITE_URL` on the service.
 
 ## Environment
