@@ -6,6 +6,7 @@ import { FlatPamphlet } from "./FlatPamphlet";
 import { Hud } from "./Hud";
 import { Loader } from "./Loader";
 import { DebugStats } from "./DebugStats";
+import { CoachMarks } from "./CoachMarks";
 import { Sheet } from "./Sheet";
 
 const Scene = dynamic(() => import("./Scene"), { ssr: false });
@@ -67,6 +68,7 @@ export function PamphletApp() {
       <Hud open={open} flipped={flipped} focused={focusId !== null} ready={ready} onToggleOpen={toggleOpen} onFlip={flip} onReset={reset} />
       <Sheet id={focusId} onClose={() => setFocusId(null)} />
       <Loader show={!ready} />
+      <CoachMarks active={ready && !open && focusId === null} />
       <DebugStats mode="3d" />
     </div>
   );
