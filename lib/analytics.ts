@@ -2,7 +2,7 @@
 // `?s=<placement>` on the QR URL tags where the scan came from; we persist it
 // for the session so later page views still carry the source.
 
-export type EventName = "scan" | "view_track" | "section_view" | "ai_demo" | "ai_intro" | "ai_ask";
+export type EventName = "scan" | "hotspot" | "fold" | "flip" | "fallback";
 
 const KEY_SOURCE = "pamphlet:source";
 const KEY_SCANNED = "pamphlet:scanned";

@@ -3,7 +3,7 @@
 
 import { db } from "@/lib/db";
 
-const ALLOWED = new Set(["scan", "view_track", "section_view", "ai_demo", "ai_intro", "ai_ask"]);
+const ALLOWED = new Set(["scan", "hotspot", "fold", "flip", "fallback"]);
 
 function str(v: unknown, max: number): string | null {
   return typeof v === "string" && v.length > 0 ? v.slice(0, max) : null;
