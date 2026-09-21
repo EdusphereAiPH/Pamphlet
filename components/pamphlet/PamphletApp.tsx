@@ -5,6 +5,7 @@ import { useCallback, useState, useSyncExternalStore } from "react";
 import { FlatPamphlet } from "./FlatPamphlet";
 import { Hud } from "./Hud";
 import { Loader } from "./Loader";
+import { DebugStats } from "./DebugStats";
 import { Sheet } from "./Sheet";
 
 const Scene = dynamic(() => import("./Scene"), { ssr: false });
@@ -53,6 +54,7 @@ export function PamphletApp() {
       <>
         <FlatPamphlet onTap={onTap} />
         <Sheet id={focusId} onClose={() => setFocusId(null)} />
+        <DebugStats mode="fallback" />
       </>
     );
   }
@@ -65,6 +67,7 @@ export function PamphletApp() {
       <Hud open={open} flipped={flipped} focused={focusId !== null} ready={ready} onToggleOpen={toggleOpen} onFlip={flip} onReset={reset} />
       <Sheet id={focusId} onClose={() => setFocusId(null)} />
       <Loader show={!ready} />
+      <DebugStats mode="3d" />
     </div>
   );
 }
