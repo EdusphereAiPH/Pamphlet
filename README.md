@@ -54,3 +54,9 @@ What the sheet says for each id lives in `content/hotspots.ts`.
 Vercel, project `edusphere-pamphlet` (https://edusphere-pamphlet.vercel.app), deployed from `main`.
 The only environment variable is `NEXT_PUBLIC_SITE_URL` (see `.env.example`). There is
 no backend and no analytics: the site is fully static.
+
+## Photos
+
+The four AI Teacher step photos in `public/product/` are from Pexels (free for commercial
+use, no attribution required): photo IDs 8423123, 12969403, 6684372, 5833808. They are
+cropped and converted to monochrome to match the theme.

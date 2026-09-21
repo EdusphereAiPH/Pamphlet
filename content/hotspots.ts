@@ -1,6 +1,5 @@
 // What the sheet shows when a hotspot is tapped. Keyed by the `data-hotspot` id in the panel HTML.
 import { SITE } from "./site";
-import type { StepIconName } from "@/components/StepIcon";
 
 export type FaceId = "front" | "flap" | "inside-a" | "inside-b" | "inside-c" | "back";
 
@@ -12,7 +11,7 @@ export type Hotspot = {
   body: string;
   bullets?: readonly string[];
   stats?: readonly { value: string; label: string }[];
-  icon?: StepIconName;
+  image?: string;
   quote?: string;
 };
 
@@ -28,7 +27,7 @@ export const HOTSPOTS: Hotspot[] = [
   { id: "idea", face: "flap", eyebrow: SITE.idea.eyebrow, title: SITE.idea.heading, body: `${SITE.idea.body} ${O.body}` },
   ...R.pillars.map((p) => ({ id: p.id, face: "flap" as const, eyebrow: R.eyebrow, title: p.lead, body: p.body, bullets: [p.tag] })),
 
-  ...T.steps.map((s) => ({ id: `step-${s.n}`, face: "inside-a" as const, eyebrow: `Step ${s.n} · ${T.eyebrow}`, title: s.title, body: s.body, icon: s.icon as StepIconName })),
+  ...T.steps.map((s) => ({ id: `step-${s.n}`, face: "inside-a" as const, eyebrow: `Step ${s.n} · ${T.eyebrow}`, title: s.title, body: s.body, image: s.image })),
   { id: "taglish", face: "inside-a", eyebrow: "AI Teacher Mode", title: T.demo.objective, body: `${T.demo.studentAsk} — ${T.demo.reply}`, quote: T.demo.quote, bullets: T.demo.chips },
 
   ...O.systems.map((s) => ({ id: s.id, face: "inside-b" as const, eyebrow: s.title, title: s.lead, body: s.body, stats: "stats" in s ? s.stats : undefined })),

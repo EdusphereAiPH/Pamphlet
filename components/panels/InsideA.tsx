@@ -1,4 +1,4 @@
-import { StepIcon, type StepIconName } from "@/components/StepIcon";
+import Image from "next/image";
 import { SITE } from "@/content/site";
 import { Eyebrow, Panel } from "./Panel";
 
@@ -13,10 +13,8 @@ export function InsideA() {
       <ol className="mt-8 grid grid-cols-2 gap-4">
         {t.steps.map((s) => (
           <li key={s.n} data-hotspot={`step-${s.n}`} className="overflow-hidden rounded-panel bg-ink text-paper">
-            <div className="flex h-[100px] w-full items-center justify-center bg-white/[0.05]">
-              <span className="flex size-[62px] items-center justify-center rounded-full ring-1 ring-white/15">
-                <StepIcon name={s.icon as StepIconName} size={30} className="text-paper" />
-              </span>
+            <div className="relative h-[100px] w-full">
+              <Image src={s.image} alt="" fill sizes="216px" className="object-cover" unoptimized />
             </div>
             <div className="px-4 pb-4 pt-3">
               <p className="text-[12px] font-medium tracking-[0.16em] text-muted-dark">{s.n}</p>

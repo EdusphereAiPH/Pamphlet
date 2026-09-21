@@ -34,10 +34,10 @@ export const SITE = {
     heading: "Upload lesson. AI teaches. Teacher supervises.",
     body: "Approved lessons become narration, visuals, student Q&A, quizzes and feedback.",
     steps: [
-      { n: "01", title: "Upload lesson", body: "PDF, PowerPoint, Word, images, video or a lesson plan. EduSphere starts from the teacher's approved material.", icon: "file-up" },
-      { n: "02", title: "AI understands", body: "Lesson context stays grounded in the teacher's material.", icon: "sparkles" },
-      { n: "03", title: "Teacher approves", body: "Hidden from students until a teacher approves.", icon: "user-check" },
-      { n: "04", title: "One record", body: "Enrollment, grades, documents and academic history stay connected.", icon: "database" },
+      { n: "01", title: "Upload lesson", body: "PDF, PowerPoint, Word, images, video or a lesson plan. EduSphere starts from the teacher's approved material.", image: "/product/step-1.webp" },
+      { n: "02", title: "AI understands", body: "Lesson context stays grounded in the teacher's material.", image: "/product/step-2.webp" },
+      { n: "03", title: "Teacher approves", body: "Hidden from students until a teacher approves.", image: "/product/step-3.webp" },
+      { n: "04", title: "One record", body: "Enrollment, grades, documents and academic history stay connected.", image: "/product/step-4.webp" },
     ],
     demo: {
       context: "Grade 8 • Mathematics",
