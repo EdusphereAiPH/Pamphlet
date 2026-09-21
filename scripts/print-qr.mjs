@@ -1,10 +1,10 @@
-// Generates the QR print assets: one QR per placement (SVG + PNG) and an A4 sheet
-// (HTML + PDF) with the event name and date from content/event.json.
+// Generates the QR print assets: the QR code (SVG + PNG) and an A4 sheet (HTML + PDF)
+// with the event name and date from content/event.json.
 //
 //   npm run qr                      # uses baseUrl from content/event.json
 //   SITE_URL=https://… npm run qr   # override the URL the QR codes point at
 //
-// Each QR encodes `${baseUrl}/p?s=<placement>` so scans are tagged by placement.
+// The QR encodes `${baseUrl}/p`.
 import { chromium } from "playwright";
 import QRCode from "qrcode";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -20,15 +20,12 @@ mkdirSync(qrDir, { recursive: true });
 const mark = readFileSync(path.join(root, "public/brand/edusphere-mark-black.png")).toString("base64");
 const qrOpts = { errorCorrectionLevel: "Q", margin: 1, color: { dark: "#09090b", light: "#ffffff" } };
 
-const cards = [];
-for (const p of event.placements) {
-  const url = `${baseUrl}/p?s=${p.id}`;
-  const svg = await QRCode.toString(url, { ...qrOpts, type: "svg" });
-  writeFileSync(path.join(qrDir, `${p.id}.svg`), svg);
-  await QRCode.toFile(path.join(qrDir, `${p.id}.png`), url, { ...qrOpts, width: 2048 });
-  cards.push({ ...p, url, svg });
-  console.log(`${p.id.padEnd(7)} ${url}`);
-}
+const url = `${baseUrl}/p`;
+const svg = await QRCode.toString(url, { ...qrOpts, type: "svg" });
+writeFileSync(path.join(qrDir, "pamphlet.svg"), svg);
+await QRCode.toFile(path.join(qrDir, "pamphlet.png"), url, { ...qrOpts, width: 2048 });
+const cards = [{ url, svg }];
+console.log(url);
 
 const page = (c) => `
 <section class="page">
@@ -44,7 +41,7 @@ const page = (c) => `
   </main>
   <footer>
     <span>edusphere-ai.com</span>
-    <span class="dim">${c.label} · ${c.hint}</span>
+    <span class="dim">${event.date}</span>
   </footer>
 </section>`;
 
@@ -86,4 +83,4 @@ await pg.setContent(html, { waitUntil: "networkidle" });
 await pg.evaluate(() => document.fonts.ready);
 await pg.pdf({ path: path.join(outDir, "qr-sheet.pdf"), format: "A4", printBackground: true, preferCSSPageSize: true });
 await browser.close();
-console.log(`\nwrote print/qr/*.svg, print/qr/*.png, print/qr-sheet.html, print/qr-sheet.pdf`);
+console.log("wrote print/qr/pamphlet.{svg,png}, print/qr-sheet.{html,pdf}");

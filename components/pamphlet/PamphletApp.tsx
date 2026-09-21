@@ -1,8 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
-import { track } from "@/lib/analytics";
+import { useCallback, useState, useSyncExternalStore } from "react";
 import { FlatPamphlet } from "./FlatPamphlet";
 import { Hud } from "./Hud";
 import { Sheet } from "./Sheet";
@@ -31,28 +30,17 @@ export function PamphletApp() {
   const [resetKey, setResetKey] = useState(0);
   const [ready, setReady] = useState(false);
 
-  useEffect(() => {
-    if (mode === "flat") track("fallback");
-  }, [mode]);
-
   const onTap = useCallback((id: string) => {
     setFocusId(id);
-    track("hotspot", { status: id });
   }, []);
   const onReady = useCallback(() => setReady(true), []);
   const onMiss = useCallback(() => setFocusId(null), []);
 
   function toggleOpen() {
-    setOpen((o) => {
-      track("fold", { status: o ? "close" : "open" });
-      return !o;
-    });
+    setOpen((o) => !o);
   }
   function flip() {
-    setFlipped((f) => {
-      track("flip", { status: f ? "front" : "back" });
-      return !f;
-    });
+    setFlipped((f) => !f);
   }
   function reset() {
     setFocusId(null);

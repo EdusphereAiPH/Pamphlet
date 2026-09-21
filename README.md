@@ -42,23 +42,15 @@ What the sheet says for each id lives in `content/hotspots.ts`.
 | `/` | Redirects to `/p` |
 | `/p` | The pamphlet (static shell; scene loads client-side) |
 | `/panels/<face>` | Source artwork for textures (not linked) |
-| `/api/scan` | Scan and interaction logging (POST) |
-
-The QR encodes `/p?s=<placement>`; `s` tags which physical placement the scan came
-from and is persisted for the session.
 
 ## QR print assets
 
-`npm run qr` reads `content/event.json` (event name, date, base URL, placements) and
-writes `print/qr/<placement>.{svg,png}` plus an A4 sheet, `print/qr-sheet.{html,pdf}`,
-one page per placement. `SITE_URL=https://… npm run qr` overrides the base URL.
+`npm run qr` reads `content/event.json` (event name, date, base URL) and writes
+`print/qr/pamphlet.{svg,png}` plus an A4 sheet, `print/qr-sheet.{html,pdf}`.
+`SITE_URL=https://… npm run qr` overrides the base URL.
 
 ## Hosting
 
 Vercel, project `edusphere-pamphlet` (https://edusphere-pamphlet.vercel.app), deployed from `main`.
-Set `DATABASE_URL` and `NEXT_PUBLIC_SITE_URL` on the service.
-
-## Environment
-
-See `.env.example`. `DATABASE_URL` uses a dedicated insert-only Postgres role through
-the Supabase pooler; the project's Data API is intentionally closed.
+The only environment variable is `NEXT_PUBLIC_SITE_URL` (see `.env.example`). There is
+no backend and no analytics: the site is fully static.

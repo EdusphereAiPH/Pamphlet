@@ -1,11 +1,5 @@
 {
   "name": "[EVENT NAME]",
   "date": "October 1, 2026",
-  "baseUrl": "https://edusphere-pamphlet.vercel.app",
-  "placements": [
-    { "id": "poster", "label": "Booth poster", "hint": "A3/A4 poster at the booth" },
-    { "id": "table", "label": "Table card", "hint": "Tent card on the table" },
-    { "id": "flyer", "label": "Handout card", "hint": "Card handed to visitors" },
-    { "id": "slide", "label": "Screen / slide", "hint": "Closing slide or booth screen" }
-  ]
+  "baseUrl": "https://edusphere-pamphlet.vercel.app"
 }
