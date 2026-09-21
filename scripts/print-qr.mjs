@@ -30,7 +30,7 @@ console.log(url);
 const page = (c) => `
 <section class="page">
   <header>
-    <span class="brand"><i class="mark"></i>EduSphere <span class="dim">AI</span></span>
+    <span class="brand"><i class="mark"></i>EduSphere <span class="ai">AI</span></span>
     <span class="eyebrow">${event.name} · ${event.date}</span>
   </header>
   <main>
@@ -58,7 +58,8 @@ const html = `<!doctype html>
   html, body { margin: 0; background: #fff; color: #09090b; font-family: Inter, system-ui, sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .page { width: 210mm; height: 297mm; padding: 18mm 20mm; display: flex; flex-direction: column; page-break-after: always; break-after: page; }
   header, footer { display: flex; justify-content: space-between; align-items: center; font-size: 11pt; }
-  .brand { display: inline-flex; align-items: center; gap: 7px; font-weight: 500; letter-spacing: -0.01em; }
+  .brand { display: inline-flex; align-items: center; gap: 7px; font-weight: 600; letter-spacing: -0.02em; }
+  .brand .ai { font-size: 8pt; font-weight: 500; line-height: 1.5; padding: 0 4px; border: 1px solid rgba(9,9,11,.4); border-radius: 4px; letter-spacing: 0; }
   .brand .mark { display: inline-block; height: 22px; width: 27px; background: url(data:image/png;base64,${mark}) center / contain no-repeat; }
   .dim { color: #6e6e73; }
   .eyebrow { font-size: 9.5pt; letter-spacing: 0.14em; text-transform: uppercase; color: #6e6e73; }

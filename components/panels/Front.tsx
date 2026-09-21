@@ -7,9 +7,8 @@ export function Front() {
     <Panel tone="dark">
       <div className="flex items-center gap-3">
         <Image src="/brand/edusphere-mark-white.png" alt="" width={952} height={777} className="h-11 w-auto" unoptimized />
-        <span className="text-[18px] font-medium tracking-tight">
-          EduSphere <span className="text-muted-dark">AI</span>
-        </span>
+        <span className="text-[19px] font-semibold tracking-[-0.02em]">EduSphere</span>
+        <span className="rounded-[6px] border border-current/40 px-1.5 text-[12px] font-medium leading-[1.5]">AI</span>
       </div>
 
       <div data-hotspot="platform" className="mt-auto -mx-3 px-3 py-3">
