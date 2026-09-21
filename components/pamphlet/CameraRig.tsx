@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { easing } from "maath";
 import * as THREE from "three";
+import { TOUCH } from "three";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { fitDistance, PANEL_H, PANEL_W } from "./geometry";
 import type { ZoneMap } from "./Pamphlet";
@@ -32,6 +33,8 @@ const HUD_BOTTOM_PX = 96;
 export function CameraRig({ zones, open, focusId, resetKey }: Props) {
   const size = useThree((s) => s.size);
   const driving = useRef(true);
+  // Camera distance of the fitted (un-zoomed) view; the pan/rotate switch is relative to it.
+  const restDist = useRef(4);
 
   useEffect(() => {
     driving.current = true;
@@ -42,14 +45,27 @@ export function CameraRig({ zones, open, focusId, resetKey }: Props) {
     const c = state.controls as unknown as OrbitControlsImpl | null;
     const camera = state.camera;
     if (!c) return;
+    const cam = camera as THREE.PerspectiveCamera;
+    const aspect = size.width / size.height;
+
     if (!driving.current) {
       c.enabled = true;
+      // Zoomed out, one finger turns the pamphlet. Zoomed in past the fitted view, one
+      // finger slides across it like a map (two fingers always pinch + slide).
+      c.touches.ONE = c.getDistance() < restDist.current * 0.8 ? TOUCH.PAN : TOUCH.ROTATE;
+      // Keep the pamphlet filling the view: the look point may travel only as far as
+      // leaves the near edge at the screen edge, so a slide can't lose it off-screen.
+      const visibleH = 2 * c.getDistance() * Math.tan((cam.fov * Math.PI) / 360);
+      const visibleW = visibleH * aspect;
+      const limX = Math.max(0.05, (open ? 1.5 : 0.5) * PANEL_W - visibleW * 0.45);
+      const limY = Math.max(0.05, PANEL_H / 2 - visibleH * 0.45);
+      c.target.x = THREE.MathUtils.clamp(c.target.x, -limX, limX);
+      c.target.y = THREE.MathUtils.clamp(c.target.y, -limY, limY);
+      c.target.z = THREE.MathUtils.clamp(c.target.z, -0.6, 0.6);
       return;
     }
     c.enabled = false;
-
-    const cam = camera as THREE.PerspectiveCamera;
-    const aspect = size.width / size.height;
+    c.touches.ONE = TOUCH.ROTATE;
     // Fit into the band between the HUD's header and controls: inflate the object's
     // height by viewport/safe so the full-frustum fit leaves that band free.
     const safeRatio = size.height / Math.max(200, size.height - HUD_TOP_PX - HUD_BOTTOM_PX);
@@ -71,6 +87,7 @@ export function CameraRig({ zones, open, focusId, resetKey }: Props) {
     } else {
       const width = open ? 3 * PANEL_W : PANEL_W;
       const dist = fitDistance(width, PANEL_H * safeRatio, cam.fov, aspect, 1.04);
+      restDist.current = dist;
       const visibleH = 2 * dist * Math.tan((cam.fov * Math.PI) / 360);
       wantLook.set(0, -visibleH * shiftFrac, 0);
       // A slight three-quarter view so edges, thickness and lighting read as an object.

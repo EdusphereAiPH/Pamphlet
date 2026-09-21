@@ -38,7 +38,9 @@ export default function Scene({ open, flipped, focusId, resetKey, onTap, onReady
 
       <OrbitControls
         makeDefault
-        enablePan={false}
+        enablePan
+        screenSpacePanning
+        panSpeed={0.8}
         enableDamping
         dampingFactor={0.09}
         rotateSpeed={0.55}
