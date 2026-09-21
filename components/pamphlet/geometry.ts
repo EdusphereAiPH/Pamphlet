@@ -5,7 +5,7 @@ export const PANEL_W = 0.99;
 export const PANEL_H = 2.1;
 export const THICK = 0.006;
 
-export type Rect = { id: string; x: number; y: number; w: number; h: number };
+export type Rect = { id: string; x: number; y: number; w: number; h: number; tone?: "dark" | "paper" };
 export type PanelId = "A" | "B" | "C";
 export type Side = "front" | "back";
 

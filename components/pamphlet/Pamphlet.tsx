@@ -77,9 +77,9 @@ export function Pamphlet({ open, flipped, focusId, zones, onTap, onReady }: Prop
       </mesh>
       {(["front", "back"] as Side[]).map((side) => {
         const face = PANEL_FACES[id][side];
-        const tone = FACE_TONE[face];
-        const color = tone === "dark" ? "#f5f5f7" : "#09090b";
         return (RECTS[face] ?? []).map((rect) => {
+          // Marker colour follows what is painted under it (a dark card on a paper face).
+          const color = (rect.tone ?? FACE_TONE[face]) === "dark" ? "#f5f5f7" : "#09090b";
           const z = zoneTransform(rect, side);
           const focused = focusId === rect.id;
           return (

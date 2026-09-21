@@ -38,7 +38,7 @@ export function FlatPamphlet({ onTap }: { onTap: (id: string) => void }) {
                 >
                   <span
                     className={`absolute bottom-2 right-2 block h-3 w-3 rounded-full ring-2 ${
-                      FACE_TONE[face] === "dark" ? "bg-paper ring-paper/30" : "bg-ink ring-ink/30"
+                      (r.tone ?? FACE_TONE[face]) === "dark" ? "bg-paper ring-paper/30" : "bg-ink ring-ink/30"
                     }`}
                   />
                 </button>

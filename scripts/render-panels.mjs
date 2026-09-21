@@ -51,12 +51,26 @@ for (const face of FACES) {
     ([w, h]) =>
       [...document.querySelectorAll("[data-hotspot]")].map((el) => {
         const r = el.getBoundingClientRect();
+        // Tone of whatever is painted under the marker (lower-right corner): walk up
+        // from the topmost element there until a non-transparent background is found.
+        let tone = "paper";
+        let node = document.elementFromPoint(r.right - 18, r.bottom - 18);
+        while (node) {
+          const m = getComputedStyle(node).backgroundColor.match(/[\d.]+/g);
+          if (m && m.length >= 3 && (m.length < 4 || +m[3] > 0.5)) {
+            const [cr, cg, cb] = m.map(Number);
+            tone = 0.2126 * cr + 0.7152 * cg + 0.0722 * cb < 128 ? "dark" : "paper";
+            break;
+          }
+          node = node.parentElement;
+        }
         return {
           id: el.getAttribute("data-hotspot"),
           x: +(r.left / w).toFixed(4),
           y: +(r.top / h).toFixed(4),
           w: +(r.width / w).toFixed(4),
           h: +(r.height / h).toFixed(4),
+          tone,
         };
       }),
     [W, H],
