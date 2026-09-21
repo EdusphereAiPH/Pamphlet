@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "panels": "node scripts/render-panels.mjs",
-    "qr": "node scripts/print-qr.mjs"
+    "qr": "node scripts/print-qr.mjs",
+    "og": "node scripts/render-og.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.8",
