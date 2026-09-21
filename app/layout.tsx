@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Instrument_Serif } from "next/font/google";
 import { SITE } from "@/content/site";
+import { OfflineReady } from "@/components/OfflineReady";
 import "./globals.css";
 
 const inter = Inter({
@@ -53,7 +54,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${inter.variable} ${instrumentSerif.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-ink text-paper">{children}</body>
+      <body className="flex min-h-full flex-col bg-ink text-paper">{children}<OfflineReady /></body>
     </html>
   );
 }

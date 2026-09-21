@@ -61,3 +61,10 @@ no backend and no analytics: the site is fully static.
 The four AI Teacher step photos in `public/product/` are from Pexels (free for commercial
 use, no attribution required): photo IDs 8423123, 12969403, 6684372, 5833808. They are
 cropped and converted to monochrome to match the theme.
+
+## Offline and install
+
+`public/sw.js` precaches the page, textures and photos and serves static assets
+cache-first, so a loaded pamphlet keeps working if the venue Wi-Fi drops. Bump
+`VERSION` in that file when assets change. `app/manifest.ts` makes it installable
+("Add to Home Screen").
