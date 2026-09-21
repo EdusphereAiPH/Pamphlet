@@ -26,29 +26,27 @@ type Props = {
 
 export function Pamphlet({ open, flipped, focusId, zones, onTap, onReady }: Props) {
   const textures = useTexture(Object.fromEntries(FACES.map((f) => [f, TEXTURE_URL(f)])) as Record<FaceId, string>);
-  const { gl, scene, camera } = useThree();
+  // Selectors, not the whole store: a bare useThree() re-renders this tree on every
+  // store change and stalls the fold animation.
+  const gl = useThree((s) => s.gl);
+  const scene = useThree((s) => s.scene);
+  const camera = useThree((s) => s.camera);
 
   useEffect(() => {
-    let cancelled = false;
     for (const t of Object.values(textures)) {
       t.colorSpace = THREE.SRGBColorSpace;
-      t.anisotropy = 4;
+      t.anisotropy = 8;
       t.needsUpdate = true;
     }
     // Upload textures and compile every material now, behind the loader, instead of
-    // on the first frame the visitor sees.
-    (async () => {
-      try {
-        for (const t of Object.values(textures)) gl.initTexture(t);
-        await gl.compileAsync(scene, camera);
-      } catch {
-        /* older GPUs: fall through, first frame compiles instead */
-      }
-      if (!cancelled) onReady?.();
-    })();
-    return () => {
-      cancelled = true;
-    };
+    // on the first frame the visitor sees. Synchronous: one-off, and the loader hides it.
+    try {
+      for (const t of Object.values(textures)) gl.initTexture(t);
+      gl.compile(scene, camera);
+    } catch {
+      /* fall through: the first frame compiles instead */
+    }
+    onReady?.();
   }, [textures, onReady, gl, scene, camera]);
 
   const materials = useMemo(() => {
