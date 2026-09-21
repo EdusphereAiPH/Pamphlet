@@ -20,7 +20,7 @@ export function Front() {
         <p className="mt-7 text-[20px] leading-[1.5] text-muted-dark">{SITE.description}</p>
       </div>
 
-      <div data-hotspot="san-isidro" className="mt-12 rounded-panel bg-white/[0.06] p-6 ring-1 ring-white/10">
+      <div data-hotspot="st-clare" className="mt-12 rounded-panel bg-white/[0.06] p-6 ring-1 ring-white/10">
         <p className="text-[12px] font-medium uppercase tracking-[0.2em] text-muted-dark">Live today</p>
         <p className="mt-2 text-[25px] font-semibold leading-[1.1] tracking-[-0.035em]">
           {SITE.proof.school} · {SITE.proof.headline}

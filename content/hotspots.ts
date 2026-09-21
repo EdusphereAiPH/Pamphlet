@@ -22,7 +22,7 @@ const S = SITE.services;
 
 export const HOTSPOTS: Hotspot[] = [
   { id: "platform", face: "front", eyebrow: "EduSphere AI", title: SITE.tagline, body: SITE.description },
-  { id: "san-isidro", face: "front", eyebrow: "Live today", title: `${SITE.proof.school} · ${SITE.proof.headline}`, body: "Running on EduSphere today.", stats: SITE.proof.stats },
+  { id: "st-clare", face: "front", eyebrow: "Live today", title: `${SITE.proof.school} · ${SITE.proof.headline}`, body: "Running on EduSphere today.", stats: SITE.proof.stats },
 
   { id: "idea", face: "flap", eyebrow: SITE.idea.eyebrow, title: SITE.idea.heading, body: `${SITE.idea.body} ${O.body}` },
   ...R.pillars.map((p) => ({ id: p.id, face: "flap" as const, eyebrow: R.eyebrow, title: p.lead, body: p.body, bullets: [p.tag] })),

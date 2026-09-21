@@ -13,7 +13,7 @@ export const SITE = {
   copyright: "© 2026 EduSphere AI. All rights reserved.",
 
   proof: {
-    school: "San Isidro Academy",
+    school: "St. Clare College",
     headline: "96 sections live",
     stats: [
       { value: "96", label: "Sections live" },
