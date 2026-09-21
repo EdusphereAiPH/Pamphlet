@@ -47,6 +47,17 @@ What the sheet says for each id lives in `content/hotspots.ts`.
 The QR encodes `/p?s=<placement>`; `s` tags which physical placement the scan came
 from and is persisted for the session.
 
+## QR print assets
+
+`npm run qr` reads `content/event.json` (event name, date, base URL, placements) and
+writes `print/qr/<placement>.{svg,png}` plus an A4 sheet, `print/qr-sheet.{html,pdf}`,
+one page per placement. `SITE_URL=https://… npm run qr` overrides the base URL.
+
+## Hosting
+
+Railway, project `lovely-generosity`, service `Pamphlet`, deployed from `main`.
+Set `DATABASE_URL` and `NEXT_PUBLIC_SITE_URL` on the service.
+
 ## Environment
 
 See `.env.example`. `DATABASE_URL` uses a dedicated insert-only Postgres role through
