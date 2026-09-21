@@ -1,6 +1,7 @@
 "use client";
 
 import { Wordmark } from "@/components/Wordmark";
+import { ShareButton } from "./ShareButton";
 
 type Props = {
   open: boolean;
@@ -18,12 +19,17 @@ const btn =
 export function Hud({ open, flipped, focused, ready, onToggleOpen, onFlip, onReset }: Props) {
   return (
     <>
-      <header className="pointer-events-none fixed inset-x-0 top-0 z-20 flex items-start justify-between px-4 pt-[max(1rem,env(safe-area-inset-top))]">
+      <header className="pointer-events-none fixed inset-x-0 top-0 z-20 flex items-center justify-between px-4 pt-[max(0.75rem,env(safe-area-inset-top))]">
         <Wordmark />
-        <p className="max-w-[46%] text-right text-xs leading-snug text-muted">
-          {ready ? "Drag · Pinch · Tap a dot" : "Loading…"}
-        </p>
+        <div className="flex items-center gap-3">
+          <p className="hidden text-right text-xs leading-snug text-muted min-[400px]:block">Drag · Pinch · Tap a dot</p>
+          <ShareButton />
+        </div>
       </header>
+      {/* Gesture hint for narrow phones, under the header. */}
+      <p className="pointer-events-none fixed inset-x-0 top-[calc(max(0.75rem,env(safe-area-inset-top))+3rem)] z-20 text-center text-xs text-muted min-[400px]:hidden">
+        Drag · Pinch · Tap a dot
+      </p>
 
       <nav
         aria-label="Pamphlet controls"

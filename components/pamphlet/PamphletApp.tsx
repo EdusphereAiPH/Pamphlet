@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { useCallback, useState, useSyncExternalStore } from "react";
 import { FlatPamphlet } from "./FlatPamphlet";
 import { Hud } from "./Hud";
+import { Loader } from "./Loader";
 import { Sheet } from "./Sheet";
 
 const Scene = dynamic(() => import("./Scene"), { ssr: false });
@@ -63,6 +64,7 @@ export function PamphletApp() {
       )}
       <Hud open={open} flipped={flipped} focused={focusId !== null} ready={ready} onToggleOpen={toggleOpen} onFlip={flip} onReset={reset} />
       <Sheet id={focusId} onClose={() => setFocusId(null)} />
+      <Loader show={!ready} />
     </div>
   );
 }
