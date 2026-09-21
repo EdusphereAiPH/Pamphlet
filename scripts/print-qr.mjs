@@ -83,5 +83,40 @@ const pg = await browser.newPage();
 await pg.setContent(html, { waitUntil: "networkidle" });
 await pg.evaluate(() => document.fonts.ready);
 await pg.pdf({ path: path.join(outDir, "qr-sheet.pdf"), format: "A4", printBackground: true, preferCSSPageSize: true });
+
+// Shareable dark card (1080×1350, chat/social friendly) with the same QR.
+const markWhite = readFileSync(path.join(root, "public/brand/edusphere-mark-white.png")).toString("base64");
+const share = `<!doctype html>
+<html lang="en"><head><meta charset="utf-8" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { width: 1080px; height: 1350px; background: #09090b; color: #f5f5f7; font-family: Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  .card { height: 100%; padding: 84px 88px; display: flex; flex-direction: column; }
+  .brand { display: flex; align-items: center; gap: 14px; font-size: 30px; font-weight: 600; letter-spacing: -0.02em; }
+  .brand img { height: 52px; width: auto; }
+  .ai { font-size: 19px; font-weight: 500; line-height: 1.5; padding: 0 9px; border: 2px solid rgba(245,245,247,.4); border-radius: 9px; letter-spacing: 0; }
+  .eyebrow { margin-top: 72px; font-size: 20px; letter-spacing: .18em; text-transform: uppercase; color: #a1a1a6; }
+  h1 { margin-top: 22px; font-size: 92px; line-height: .96; letter-spacing: -0.055em; font-weight: 600; }
+  h1 em { font-family: "Instrument Serif", serif; font-style: italic; font-weight: 400; font-size: 1.08em; letter-spacing: -0.02em; color: #a1a1a6; }
+  .lead { margin-top: 30px; font-size: 27px; line-height: 1.45; color: #a1a1a6; max-width: 760px; }
+  .qr { margin: auto auto 0; width: 470px; height: 470px; padding: 30px; background: #fff; border-radius: 34px; }
+  .qr svg { width: 100%; height: 100%; display: block; }
+  .url { margin-top: 26px; text-align: center; font-size: 23px; color: #a1a1a6; }
+  footer { margin-top: 44px; display: flex; justify-content: space-between; font-size: 20px; color: #6e6e73; border-top: 1px solid #1c1f24; padding-top: 26px; }
+</style></head>
+<body><div class="card">
+  <div class="brand"><img src="data:image/png;base64,${markWhite}" alt="" />EduSphere <span class="ai">AI</span></div>
+  <p class="eyebrow">${event.name} · ${event.date}</p>
+  <h1>Scan to open<br /><em>the pamphlet.</em></h1>
+  <p class="lead">Turn it, unfold it, tap anything to learn more. One platform. Complete school intelligence.</p>
+  <div class="qr">${svg}</div>
+  <p class="url">${url.replace(/^https?:\/\//, "")}</p>
+  <footer><span>edusphere-ai.com</span><span>Built in the Philippines for schools</span></footer>
+</div></body></html>`;
+await pg.setViewportSize({ width: 1080, height: 1350 });
+await pg.setContent(share, { waitUntil: "networkidle" });
+await pg.evaluate(() => document.fonts.ready);
+await pg.screenshot({ path: path.join(outDir, "qr-share.png"), fullPage: false });
 await browser.close();
-console.log("wrote print/qr/pamphlet.{svg,png}, print/qr-sheet.{html,pdf}");
+console.log("wrote print/qr/pamphlet.{svg,png}, print/qr-sheet.{html,pdf}, print/qr-share.png");

@@ -46,7 +46,8 @@ What the sheet says for each id lives in `content/hotspots.ts`.
 ## QR print assets
 
 `npm run qr` reads `content/event.json` (event name, date, base URL) and writes
-`print/qr/pamphlet.{svg,png}` plus an A4 sheet, `print/qr-sheet.{html,pdf}`.
+`print/qr/pamphlet.{svg,png}`, an A4 sheet `print/qr-sheet.{html,pdf}`, and a shareable
+1080×1350 dark card `print/qr-share.png`.
 `SITE_URL=https://… npm run qr` overrides the base URL.
 
 ## Hosting
