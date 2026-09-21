@@ -7,7 +7,7 @@ export function InsideA() {
   return (
     <Panel tone="paper">
       <Eyebrow>{t.eyebrow}</Eyebrow>
-      <h2 className="mt-4 font-serif text-[42px] leading-[1.02] tracking-tight">{t.heading}</h2>
+      <h2 className="mt-4 text-[38px] font-semibold leading-[0.98] tracking-[-0.05em]">{t.heading}</h2>
       <p className="mt-4 text-[17px] leading-[1.5] text-ink/70">{t.body}</p>
 
       <ol className="mt-8 grid grid-cols-2 gap-4">
@@ -18,7 +18,7 @@ export function InsideA() {
             </div>
             <div className="px-4 pb-4 pt-3">
               <p className="text-[12px] font-medium tracking-[0.16em] text-muted-dark">{s.n}</p>
-              <p className="mt-1 font-serif text-[22px] leading-tight">{s.title}</p>
+              <p className="mt-1 text-[17px] font-semibold leading-tight tracking-[-0.02em]">{s.title}</p>
               <p className="mt-1.5 text-[13px] leading-[1.38] text-paper/70">{s.body}</p>
             </div>
           </li>
@@ -27,7 +27,7 @@ export function InsideA() {
 
       <div data-hotspot="taglish" className="mt-5 rounded-panel bg-black/[0.045] p-5">
         <p className="text-[12px] font-medium uppercase tracking-[0.16em] text-muted">AI Teacher Mode · {t.demo.context}</p>
-        <p className="mt-2.5 font-serif text-[20px] italic leading-snug">“{t.demo.quote}”</p>
+        <p className="accent-serif mt-2.5 text-[18px] leading-snug">“{t.demo.quote}”</p>
         <p className="mt-3 text-[14px] leading-[1.45] text-ink/70">
           <span className="font-medium text-ink">Student:</span> {t.demo.studentAsk}
         </p>

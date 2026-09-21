@@ -34,6 +34,15 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* The site's .text-accent-serif: Instrument Serif is only ever used like this. */
+@utility accent-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  font-size: 1.08em;
+}
+
 ::selection {
   background: var(--color-paper);
   color: var(--color-ink);

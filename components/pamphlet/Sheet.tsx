@@ -25,7 +25,7 @@ export function Sheet({ id, onClose }: { id: string | null; onClose: () => void 
           <div className="flex items-start justify-between gap-4">
             <div>
               {h.eyebrow && <p className="text-xs font-medium uppercase tracking-[0.18em] text-ink/55">{h.eyebrow}</p>}
-              <h2 className="mt-2 font-serif text-[1.85rem] leading-[1.05] tracking-tight">{h.title}</h2>
+              <h2 className="mt-2 text-[1.6rem] font-semibold leading-[1.05] tracking-[-0.04em]">{h.title}</h2>
             </div>
             <button
               type="button"
@@ -37,14 +37,14 @@ export function Sheet({ id, onClose }: { id: string | null; onClose: () => void 
             </button>
           </div>
 
-          {h.quote && <p className="mt-4 font-serif text-xl italic leading-snug text-ink/80">“{h.quote}”</p>}
+          {h.quote && <p className="accent-serif mt-4 text-lg leading-snug text-ink/80">“{h.quote}”</p>}
           <p className="mt-3 text-[16px] leading-relaxed text-ink/80">{h.body}</p>
 
           {h.stats && (
             <dl className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
               {h.stats.map((s) => (
                 <div key={s.label} className="rounded-panel bg-ink/[0.05] p-3">
-                  <dd className="font-serif text-2xl leading-none">{s.value}</dd>
+                  <dd className="text-2xl font-semibold leading-none tracking-[-0.04em]">{s.value}</dd>
                   <dt className="mt-1 text-[11px] uppercase tracking-wider text-ink/55">{s.label}</dt>
                 </div>
               ))}

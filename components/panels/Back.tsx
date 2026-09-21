@@ -14,7 +14,7 @@ export function Back() {
       </div>
 
       <div className="mt-auto">
-        <h2 className="font-serif text-[54px] leading-[0.98] tracking-tight">{c.heading}</h2>
+        <h2 className="text-[50px] font-semibold leading-[0.96] tracking-[-0.055em]">{c.heading}</h2>
         <p className="mt-6 text-[19px] leading-[1.5] text-muted-dark">{c.body}</p>
       </div>
 

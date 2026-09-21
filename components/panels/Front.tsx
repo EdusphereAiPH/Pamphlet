@@ -13,17 +13,17 @@ export function Front() {
       </div>
 
       <div data-hotspot="platform" className="mt-auto -mx-3 px-3 py-3">
-        <h1 className="font-serif text-[64px] leading-[0.98] tracking-tight">
+        <h1 className="text-[60px] font-semibold leading-[0.94] tracking-[-0.055em]">
           One platform.
           <br />
-          <em className="text-paper/70">Complete school intelligence.</em>
+          <span className="accent-serif text-paper/70">Complete school intelligence.</span>
         </h1>
         <p className="mt-7 text-[20px] leading-[1.5] text-muted-dark">{SITE.description}</p>
       </div>
 
       <div data-hotspot="san-isidro" className="mt-12 rounded-panel bg-white/[0.06] p-6 ring-1 ring-white/10">
         <p className="text-[12px] font-medium uppercase tracking-[0.2em] text-muted-dark">Live today</p>
-        <p className="mt-2 font-serif text-[30px] leading-tight">
+        <p className="mt-2 text-[25px] font-semibold leading-[1.1] tracking-[-0.035em]">
           {SITE.proof.school} · {SITE.proof.headline}
         </p>
         <p className="mt-2 text-[15px] text-paper/70">
