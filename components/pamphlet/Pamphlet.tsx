@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useRef } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { Line, useTexture } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
 import { easing } from "maath";
 import * as THREE from "three";
 import rectsJson from "@/content/hotspot-rects.json";
@@ -21,10 +20,11 @@ type Props = {
   focusId: string | null;
   zones: React.MutableRefObject<ZoneMap>;
   onTap: (id: string) => void;
+  onMiss?: () => void;
   onReady?: () => void;
 };
 
-export function Pamphlet({ open, flipped, focusId, zones, onTap, onReady }: Props) {
+export function Pamphlet({ open, flipped, focusId, zones, onTap, onMiss, onReady }: Props) {
   const textures = useTexture(Object.fromEntries(FACES.map((f) => [f, TEXTURE_URL(f)])) as Record<FaceId, string>);
   // Selectors, not the whole store: a bare useThree() re-renders this tree on every
   // store change and stalls the fold animation.
@@ -86,7 +86,15 @@ export function Pamphlet({ open, flipped, focusId, zones, onTap, onReady }: Prop
 
   const panel = (id: PanelId, position: [number, number, number]) => (
     <group position={position}>
-      <mesh material={materials[id]} onClick={(e) => e.stopPropagation()}>
+      {/* Tapping the paper (not a dot) while zoomed in closes the sheet, same as tapping
+          the dark background: when focused there is often no background left to tap. */}
+      <mesh
+        material={materials[id]}
+        onClick={(e) => {
+          e.stopPropagation();
+          if (focusId) onMiss?.();
+        }}
+      >
         <boxGeometry args={[PANEL_W, PANEL_H, THICK]} />
       </mesh>
       {(["front", "back"] as Side[]).map((side) => {

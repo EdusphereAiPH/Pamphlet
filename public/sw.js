@@ -1,6 +1,6 @@
 /* Offline cache for the pamphlet. Static assets (textures, photos, fonts, JS) are
    cache-first; the page itself is network-first with a cached fallback. */
-const VERSION = "v1";
+const VERSION = "v2";
 const CACHE = `pamphlet-${VERSION}`;
 const PRECACHE = [
   "/p",
@@ -48,7 +48,9 @@ self.addEventListener("fetch", (e) => {
     e.respondWith(
       fetch(req)
         .then((res) => {
-          caches.open(CACHE).then((c) => c.put("/p", res.clone()));
+          // Only the pamphlet page itself, and never a redirect (Chrome refuses to
+          // serve a cached redirected response to a navigation).
+          if (res.ok && !res.redirected && url.pathname === "/p") caches.open(CACHE).then((c) => c.put("/p", res.clone()));
           return res;
         })
         .catch(() => caches.match("/p")),

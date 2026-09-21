@@ -26,7 +26,7 @@ export function FlatPamphlet({ onTap }: { onTap: (id: string) => void }) {
           <li key={face}>
             <p className="mb-2 text-xs font-medium uppercase tracking-[0.18em] text-muted-dark">{LABEL[face]}</p>
             <div className="relative overflow-hidden rounded-panel">
-              <Image src={TEXTURE_URL(face)} alt={LABEL[face]} width={1024} height={2172} sizes="(max-width: 520px) 100vw, 520px" className="h-auto w-full" />
+              <Image src={TEXTURE_URL(face)} alt={LABEL[face]} width={1024} height={2172} className="h-auto w-full" unoptimized />
               {(RECTS[face] ?? []).map((r) => (
                 <button
                   key={r.id}

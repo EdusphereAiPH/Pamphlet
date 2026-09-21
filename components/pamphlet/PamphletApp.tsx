@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useCallback, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
 import { FlatPamphlet } from "./FlatPamphlet";
 import { Hud } from "./Hud";
 import { Loader } from "./Loader";
@@ -32,6 +32,20 @@ export function PamphletApp() {
   const [focusId, setFocusId] = useState<string | null>(null);
   const [resetKey, setResetKey] = useState(0);
   const [ready, setReady] = useState(false);
+  const [forceFlat, setForceFlat] = useState(false);
+
+  // Safety net: a GPU that reports WebGL but never renders (or loses its context)
+  // must not leave the visitor staring at the loader.
+  useEffect(() => {
+    if (mode !== "3d" || ready) return;
+    const t = setTimeout(() => setForceFlat(true), 20000);
+    return () => clearTimeout(t);
+  }, [mode, ready]);
+  useEffect(() => {
+    const lost = () => setForceFlat(true);
+    window.addEventListener("pamphlet:webgl-lost", lost);
+    return () => window.removeEventListener("pamphlet:webgl-lost", lost);
+  }, []);
 
   const onTap = useCallback((id: string) => {
     setFocusId(id);
@@ -50,7 +64,7 @@ export function PamphletApp() {
     setResetKey((k) => k + 1);
   }
 
-  if (mode === "flat") {
+  if (mode === "flat" || forceFlat) {
     return (
       <>
         <FlatPamphlet onTap={onTap} />

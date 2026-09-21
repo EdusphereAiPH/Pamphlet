@@ -24,7 +24,10 @@ export default function Scene({ open, flipped, focusId, resetKey, onTap, onReady
       dpr={[1, 2]}
       camera={{ fov: 40, position: [0, 0, 4], near: 0.05, far: 60 }}
       gl={{ antialias: true, powerPreference: "high-performance" }}
-      onCreated={({ gl }) => gl.setClearColor("#09090b")}
+      onCreated={({ gl }) => {
+        gl.setClearColor("#09090b");
+        gl.domElement.addEventListener("webglcontextlost", () => window.dispatchEvent(new Event("pamphlet:webgl-lost")), { once: true });
+      }}
       onPointerMissed={onMiss}
       className="touch-none"
     >
@@ -33,7 +36,7 @@ export default function Scene({ open, flipped, focusId, resetKey, onTap, onReady
       <directionalLight position={[-3, -1.5, 2.5]} intensity={0.35} />
 
       <Suspense fallback={null}>
-        <Pamphlet open={open} flipped={flipped} focusId={focusId} zones={zones} onTap={onTap} onReady={onReady} />
+        <Pamphlet open={open} flipped={flipped} focusId={focusId} zones={zones} onTap={onTap} onMiss={onMiss} onReady={onReady} />
       </Suspense>
 
       <OrbitControls

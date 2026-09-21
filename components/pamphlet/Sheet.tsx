@@ -82,7 +82,7 @@ export function Sheet({ id, onClose }: { id: string | null; onClose: () => void 
 
           {h.image && (
             <div className="mt-4 overflow-hidden rounded-panel bg-ink">
-              <Image src={h.image} alt="" width={1200} height={560} sizes="(max-width: 720px) 100vw, 720px" className="h-auto w-full" />
+              <Image src={h.image} alt="" width={1200} height={560} className="h-auto w-full" unoptimized />
             </div>
           )}
 
