@@ -116,7 +116,10 @@ export function Pamphlet({ open, flipped, focusId, zones, onTap, onMiss, onReady
                 }}
                 onClick={(e) => {
                   e.stopPropagation();
-                  onTap(rect.id);
+                  // Tapping the focused region again closes its sheet; while zoomed in it
+                  // fills the screen, so this is the natural "tap outside" gesture.
+                  if (focusId === rect.id) onMiss?.();
+                  else onTap(rect.id);
                 }}
               >
                 <planeGeometry args={[z.width, z.height]} />
