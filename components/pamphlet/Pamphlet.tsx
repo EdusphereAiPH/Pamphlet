@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Line, useTexture } from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
 import { easing } from "maath";
 import * as THREE from "three";
 import rectsJson from "@/content/hotspot-rects.json";
@@ -25,15 +26,30 @@ type Props = {
 
 export function Pamphlet({ open, flipped, focusId, zones, onTap, onReady }: Props) {
   const textures = useTexture(Object.fromEntries(FACES.map((f) => [f, TEXTURE_URL(f)])) as Record<FaceId, string>);
+  const { gl, scene, camera } = useThree();
 
   useEffect(() => {
+    let cancelled = false;
     for (const t of Object.values(textures)) {
       t.colorSpace = THREE.SRGBColorSpace;
-      t.anisotropy = 8;
+      t.anisotropy = 4;
       t.needsUpdate = true;
     }
-    onReady?.();
-  }, [textures, onReady]);
+    // Upload textures and compile every material now, behind the loader, instead of
+    // on the first frame the visitor sees.
+    (async () => {
+      try {
+        for (const t of Object.values(textures)) gl.initTexture(t);
+        await gl.compileAsync(scene, camera);
+      } catch {
+        /* older GPUs: fall through, first frame compiles instead */
+      }
+      if (!cancelled) onReady?.();
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [textures, onReady, gl, scene, camera]);
 
   const materials = useMemo(() => {
     const edge = new THREE.MeshStandardMaterial({ color: "#d9d9df", roughness: 0.95 });

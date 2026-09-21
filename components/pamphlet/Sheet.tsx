@@ -19,7 +19,7 @@ export function Sheet({ id, onClose }: { id: string | null; onClose: () => void 
           animate={{ y: 0 }}
           exit={{ y: "100%" }}
           transition={{ duration: 0.45, ease: EASE }}
-          className="fixed inset-x-0 bottom-0 z-30 mx-auto max-h-[52svh] w-full max-w-[720px] overflow-y-auto rounded-t-card bg-paper px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-5 text-ink shadow-[0_-20px_60px_rgba(0,0,0,0.5)]"
+          className="fixed inset-x-0 bottom-0 z-30 mx-auto max-h-[52svh] w-full max-w-[720px] overflow-y-auto rounded-t-card bg-paper px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-5 text-ink ring-1 ring-white/10 will-change-transform"
         >
           <div className="mx-auto mb-4 h-1 w-10 rounded-pill bg-ink/15" />
           <div className="flex items-start justify-between gap-4">
