@@ -43,6 +43,17 @@ body {
   font-size: 1.08em;
 }
 
+/* Loader bar: a pure CSS transform animation runs on the compositor thread, so it keeps
+   moving while the main thread is busy parsing the scene and decoding textures. */
+@keyframes loader-slide {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(300%); }
+}
+@utility animate-loader {
+  animation: loader-slide 1.2s ease-in-out infinite;
+  will-change: transform;
+}
+
 ::selection {
   background: var(--color-paper);
   color: var(--color-ink);

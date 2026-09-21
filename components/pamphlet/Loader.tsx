@@ -25,11 +25,7 @@ export function Loader({ show }: { show: boolean }) {
           >
             <Wordmark className="scale-125" />
             <div className="h-px w-40 overflow-hidden rounded-pill bg-white/10">
-              <motion.div
-                className="h-full w-1/3 bg-paper"
-                animate={{ x: ["-100%", "300%"] }}
-                transition={{ duration: 1.2, ease: "easeInOut", repeat: Infinity }}
-              />
+              <div className="animate-loader h-full w-1/3 bg-paper" />
             </div>
             <p className="text-[13px] tracking-[0.02em] text-muted">Loading your pamphlet</p>
           </motion.div>
