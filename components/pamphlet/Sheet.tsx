@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { StepIcon } from "@/components/StepIcon";
 import { AnimatePresence, motion } from "motion/react";
 import { HOTSPOT_BY_ID } from "@/content/hotspots";
 
@@ -61,9 +61,11 @@ export function Sheet({ id, onClose }: { id: string | null; onClose: () => void 
             </ul>
           )}
 
-          {h.image && (
-            <div className="mt-4 overflow-hidden rounded-panel bg-ink">
-              <Image src={h.image} alt="" width={1100} height={1100} sizes="(max-width: 720px) 100vw, 720px" className="h-auto w-full" />
+          {h.icon && (
+            <div className="mt-4 flex h-28 items-center justify-center rounded-panel bg-ink text-paper">
+              <span className="flex size-16 items-center justify-center rounded-full ring-1 ring-white/15">
+                <StepIcon name={h.icon} size={30} />
+              </span>
             </div>
           )}
 
