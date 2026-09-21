@@ -13,6 +13,7 @@ export type Hotspot = {
   stats?: readonly { value: string; label: string }[];
   image?: string;
   quote?: string;
+  links?: readonly { label: string; href: string }[];
 };
 
 const T = SITE.teacher;
@@ -35,7 +36,19 @@ export const HOTSPOTS: Hotspot[] = [
   ...S.categories.map((c) => ({ id: c.id, face: "inside-c" as const, eyebrow: `${S.eyebrow} · ${c.letter}`, title: c.title, body: S.body, bullets: c.items })),
   { id: "pricing", face: "inside-c", eyebrow: SITE.pricing.eyebrow, title: SITE.pricing.heading, body: SITE.pricing.body, quote: SITE.pricing.quote, bullets: SITE.pricing.points.map((p) => `${p.title} — ${p.body}`) },
 
-  { id: "contact", face: "back", eyebrow: SITE.close.heading, title: SITE.close.write, body: `${SITE.contactEmail} · ${SITE.urlLabel} · Facebook`, bullets: [SITE.footerLine] },
+  {
+    id: "contact",
+    face: "back",
+    eyebrow: SITE.close.heading,
+    title: SITE.close.write,
+    body: SITE.close.body,
+    links: [
+      { label: SITE.contactEmail, href: `mailto:${SITE.contactEmail}?subject=${encodeURIComponent("EduSphere AI — inquiry")}` },
+      { label: SITE.urlLabel, href: SITE.url },
+      { label: "Facebook", href: SITE.facebook },
+    ],
+    bullets: [SITE.footerLine],
+  },
 ];
 
 export const HOTSPOT_BY_ID: Record<string, Hotspot> = Object.fromEntries(HOTSPOTS.map((h) => [h.id, h]));

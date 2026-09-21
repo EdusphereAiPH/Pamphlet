@@ -40,6 +40,25 @@ export function Sheet({ id, onClose }: { id: string | null; onClose: () => void 
           {h.quote && <p className="accent-serif mt-4 text-lg leading-snug text-ink/80">“{h.quote}”</p>}
           <p className="mt-3 text-[16px] leading-relaxed text-ink/80">{h.body}</p>
 
+          {h.links && (
+            <div className="mt-4 flex flex-col gap-2">
+              {h.links.map((l, i) => (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  target={l.href.startsWith("mailto:") ? undefined : "_blank"}
+                  rel={l.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+                  className={`inline-flex h-12 items-center justify-between rounded-pill px-5 font-medium ${
+                    i === 0 ? "bg-ink text-paper hover:bg-black" : "bg-ink/[0.06] text-ink hover:bg-ink/10"
+                  }`}
+                >
+                  <span className="truncate">{l.label}</span>
+                  <span aria-hidden className={`ml-3 shrink-0 ${i === 0 ? "text-paper/60" : "text-ink/50"}`}>{l.href.startsWith("mailto:") ? "✉" : "↗"}</span>
+                </a>
+              ))}
+            </div>
+          )}
+
           {h.stats && (
             <dl className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
               {h.stats.map((s) => (
